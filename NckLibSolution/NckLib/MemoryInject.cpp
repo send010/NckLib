@@ -5,19 +5,21 @@
 
 DWORD MemoryInject::BeginInject(DWORD dwPid, PTCHAR szDllFullPath)
 {
-	//打开进程
+	//打开目标进程
 	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, TRUE, dwPid);
+	//先将模块加载到注入器进程
 	HMODULE pLib = LoadLibrary(szDllFullPath);
+	//得到加载后的模块基址
 	DWORD dwLibBase = (DWORD)pLib;
-	//ImageDosHeader
+	//定位ImageDosHeader
 	PIMAGE_DOS_HEADER pImageDosHeader = (PIMAGE_DOS_HEADER)dwLibBase;
-	//NtHeader
+	//定位NtHeader
 	PIMAGE_NT_HEADERS pImageNtHeader = (PIMAGE_NT_HEADERS)(dwLibBase + pImageDosHeader->e_lfanew);
 	//得到镜像大小
 	DWORD imageSize = pImageNtHeader->OptionalHeader.SizeOfImage;
-	//申请一段内存用来存放需要注入的DLL数据
+	//在目标进程中申请一段内存用来存放需要注入的DLL数据
 	PBYTE realInjectMemory = (PBYTE)VirtualAllocEx(hProcess, NULL, imageSize, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
-	//临时用来修复重定位的DLL数据，用完函数结束会释放掉
+	//在自身进程用申请一段内存。临时用来修复重定位的DLL数据，用完函数结束会释放掉
 	PBYTE pTempDll = (PBYTE)VirtualAllocEx(GetCurrentProcess(), NULL, imageSize, MEM_COMMIT | MEM_RESERVE, PAGE_EXECUTE_READWRITE);
 	//复制内存
 	RtlMoveMemory(pTempDll, pLib, imageSize);
@@ -106,14 +108,6 @@ PDWORD MemoryInject::BeginInject(DWORD dwPid, LPBYTE injectBuffer, DWORD dwBuffe
 	hThead = CreateRemoteThread(hProcess, 0, 0, (LPTHREAD_START_ROUTINE)lpbShellCodeAddress, lpbPeAddress, 0, &threadId);
 	WaitForSingleObject(hThead, -1);
 	CloseHandle(hThead);
-
-	//测试写出的文件是否正确
-	//FILE* stream;
-	//errno_t err;
-	//err  = fopen_s(&stream,"demo.exe", "wb");
-	//fwrite(pBuffer, dwSize, 1, stream);
-	//fclose(stream);
-	
 
 	return (LPDWORD)lpbPeAddress;
 }

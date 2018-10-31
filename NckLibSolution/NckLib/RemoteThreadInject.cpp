@@ -10,7 +10,7 @@ RemoteThreadInject::RemoteThreadInject()
 RemoteThreadInject::~RemoteThreadInject()
 {
 }
-DWORD RemoteThreadInject::DoRemoteThreadInject(DWORD dwProcessId, LPTSTR lpszDllName)
+BOOL RemoteThreadInject::BeginRemoteThreadInject(DWORD dwProcessId, LPTSTR lpszDllName)
 {
 	HANDLE	hProcess = NULL;
 	HANDLE	hThread = NULL;
@@ -61,5 +61,5 @@ DWORD RemoteThreadInject::DoRemoteThreadInject(DWORD dwProcessId, LPTSTR lpszDll
 	CloseHandle(hThread);
 	CloseHandle(hProcess);
 
-	return (DWORD)GetModuleHandle(lpszDllName);
+	return TRUE;
 }
