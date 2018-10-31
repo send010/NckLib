@@ -1,6 +1,8 @@
 #include "MemoryInject.h"
 #include "MemoryInjectShellCode.h"
 
+
+
 DWORD MemoryInject::BeginInject(DWORD dwPid, PTCHAR szDllFullPath)
 {
 	//打开进程
