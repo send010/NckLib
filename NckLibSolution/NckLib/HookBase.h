@@ -7,8 +7,9 @@ public:
 	HookBase();
 	~HookBase();
 public:
+
 	//是否已经HOOK
-	BOOL isHook;
+	BOOL isHooked;
 
 	//开始HOOK
 	virtual BOOL BeginHook(DWORD sourceAddr, DWORD targetAddr)=0;

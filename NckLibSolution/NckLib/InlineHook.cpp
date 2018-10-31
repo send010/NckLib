@@ -18,36 +18,43 @@ InlineHook::InlineHook()
 
 InlineHook::~InlineHook()
 {
-	delete this;
+
 }
 
-DWORD InlineHook::CalcJmpAddress(DWORD targetAddress, DWORD hookAddress) 
+DWORD InlineHook::CalcJmpCallAddress(DWORD dwTargetAddress, DWORD dwHookAddress) 
 {
-	return targetAddress - hookAddress - 5;
+	return dwTargetAddress - dwHookAddress - 5;
 }
 
 
 
 
-BOOL InlineHook::BeginHook(DWORD sourceAddr, DWORD targetAddr)
+BOOL InlineHook::BeginHook(DWORD dwSourceAddr, DWORD dwTargetAddr)
 {
-	dwHookAddress = sourceAddr;
-	dwTargetAddress = targetAddr;
+	//要HOOK的地址
+	dwHookAddress = dwSourceAddr;
+	//Hook后跳转到的地址
+	dwTargetAddress = dwTargetAddr;
 	//定义反汇编引擎
 	DISASM disam;
-	memset(&disam, 0, sizeof(DISASM));
+	//清零
+	ZeroMemory(&disam, sizeof(DISASM));
 	//设置反汇编引擎进行反汇编的位置
-	disam.EIP = sourceAddr;
-	//执行反汇编
+	disam.EIP = dwSourceAddr;
+	//执行反汇编，该函数返回当前指令字节数
 	dwHookLen = Disasm(&disam);
+	DWORD dwTempLen = 0;
+	DWORD dwTotalBytes = 0;
 	//当此处字节不够时，继续向下寻找指令，直到大于等于五个字节为止
-	while (dwHookLen < 5)
+	while (dwTotalBytes < 5)
 	{
-		disam.EIP += dwHookLen;
-		dwHookLen += Disasm(&disam);
+		dwTempLen = Disasm(&disam);
+		disam.EIP += dwTempLen;
+		dwTotalBytes += dwTempLen;
 	}
+
 	//拷贝原始指令
-	memcpy_s(oldBytes, dwHookLen, (void*)sourceAddr, dwHookLen);
+	RtlMoveMemory(oldBytes, (void*)dwSourceAddr, dwTotalBytes);
 
 	//申请一段内存，用来存放ShellCode
 	LPBYTE dwShellCodeAddress = (LPBYTE)VirtualAlloc(NULL, 0x1000, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
@@ -94,27 +101,27 @@ BOOL InlineHook::BeginHook(DWORD sourceAddr, DWORD targetAddr)
 	*((LPDWORD)(dwShellCodeAddr + 31)) = regEbp;
 	*((LPDWORD)(dwShellCodeAddr + 37)) = regEsi;
 	*((LPDWORD)(dwShellCodeAddr + 43)) = regEdi;
-	*((LPDWORD)(dwShellCodeAddr + 50)) = targetAddr;
-	memcpy((LPVOID)(dwShellCodeAddr + 58), (LPVOID)oldBytes, dwHookLen);
+	*((LPDWORD)(dwShellCodeAddr + 50)) = dwTargetAddr;
+	memcpy((LPVOID)(dwShellCodeAddr + 58), (LPVOID)oldBytes, dwTotalBytes);
 	//计算HOOK执行完毕后jmp返回的地址
-	dwBackAddress = sourceAddr + dwHookLen;
+	dwBackAddress = dwSourceAddr + dwTotalBytes;
 	*((LPDWORD)(dwShellCodeAddr + 74)) = dwBackAddress;
 	//将ShellCode复制到指定内存
 	memcpy((LPVOID)dwShellCodeAddress, (LPVOID)inlineHookShellCode, sizeof(inlineHookShellCode) / sizeof(BYTE));
 	//修改内存页属性为可读可写可执行
 	DWORD oldProtect;
 	HANDLE hHandle = OpenProcess(PROCESS_ALL_ACCESS, TRUE, GetCurrentProcessId());
-	VirtualProtectEx(hHandle,(LPVOID)sourceAddr, 0x1000, PAGE_EXECUTE_READWRITE, &oldProtect);
+	VirtualProtectEx(hHandle,(LPVOID)dwSourceAddr, 0x1000, PAGE_EXECUTE_READWRITE, &oldProtect);
 
 	//这里别用指针操作，加了强壳的程序用指针没用
 	CHAR hookBuff[5] = { 0xE9};
-	int jmpAddress = CalcJmpAddress((DWORD)dwShellCodeAddress, sourceAddr);
-	memcpy(&hookBuff[1], &jmpAddress, 4);
+	int jmpAddress = CalcJmpCallAddress((DWORD)dwShellCodeAddress, dwSourceAddr);
+	RtlMoveMemory(&hookBuff[1], &jmpAddress, 4);
 	DWORD dwWriteBytesNum;
-	WriteProcessMemory(hHandle, (LPVOID)(sourceAddr), hookBuff,5, &dwWriteBytesNum);
+	WriteProcessMemory(hHandle, (LPVOID)(dwSourceAddr), hookBuff,5, &dwWriteBytesNum);
 	if (dwWriteBytesNum == 5)
 	{
-		isHook = true;
+		isHooked = true;
 		return true;
 	}
 	else
@@ -129,6 +136,6 @@ BOOL InlineHook::EndHook()
 {
 	//拷贝原始指令
 	memcpy_s((LPVOID)dwHookAddress, dwHookLen, oldBytes, dwHookLen);
-	isHook = FALSE;
+	isHooked = FALSE;
 	return true;
 }

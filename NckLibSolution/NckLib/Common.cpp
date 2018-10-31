@@ -1,6 +1,5 @@
 #include "Common.h"
 
-//特征码搜索
 DWORD Bin_Search(BYTE * pSourceArrary, DWORD dwSourceLen, BYTE *pTargetArray, DWORD dwTargetLen)
 {
 	for (int i = 0; i <= dwSourceLen - dwTargetLen; i++)
@@ -26,11 +25,7 @@ DWORD Bin_Search(BYTE * pSourceArrary, DWORD dwSourceLen, BYTE *pTargetArray, DW
 }
 
 
-/**判断str1是否以str2结尾
- * 如果是返回1
- * 不是返回0
- * 出错返回-1
- * */
+
 int Str_IsEndWith(const char *str1, char *str2)
 {
 	if (str1 == NULL || str2 == NULL)
