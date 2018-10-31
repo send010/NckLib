@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\Common">
+      <UniqueIdentifier>{e2619232-46ee-45db-a139-b1477fc3d49b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Hook">
+      <UniqueIdentifier>{ebc170a1-710a-44a9-97d0-05b8e46a4f76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Hook">
+      <UniqueIdentifier>{59a32653-9df0-4791-91b7-8648481b6c7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Common">
+      <UniqueIdentifier>{218fd2e2-df39-4a6f-ad55-f4474fb3de41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Inject">
+      <UniqueIdentifier>{9cce10ac-20b9-4eef-8d3f-8cdef60878ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Inject">
+      <UniqueIdentifier>{81609e34-8184-4ad2-b407-38bcb1e0c5f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Decompiler">
+      <UniqueIdentifier>{d530bbfa-ab73-4722-8c1c-80aa63dbfd27}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Includes\basic_types.h">
+      <Filter>头文件\Decompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="BeaEngine.h">
+      <Filter>头文件\Decompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\export.h">
+      <Filter>头文件\Decompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="HookBase.h">
+      <Filter>头文件\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="InlineHook.h">
+      <Filter>头文件\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="InjectBase.h">
+      <Filter>头文件\Inject</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryInject.h">
+      <Filter>头文件\Inject</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryInjectShellCode.h">
+      <Filter>头文件\Inject</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoteThreadInject.h">
+      <Filter>头文件\Inject</Filter>
+    </ClInclude>
+    <ClInclude Include="MemLoadDll.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HookBase.cpp">
+      <Filter>源文件\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="InlineHook.cpp">
+      <Filter>源文件\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="InjectBase.cpp">
+      <Filter>源文件\Inject</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryInject.cpp">
+      <Filter>源文件\Inject</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoteThreadInject.cpp">
+      <Filter>源文件\Inject</Filter>
+    </ClCompile>
+    <ClCompile Include="MemLoadDll.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

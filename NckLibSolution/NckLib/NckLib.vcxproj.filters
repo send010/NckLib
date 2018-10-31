@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="HookBase.cpp">
+      <Filter>头文件\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="InjectBase.cpp">
+      <Filter>源文件\Inject</Filter>
+    </ClCompile>
+    <ClCompile Include="InlineHook.cpp">
+      <Filter>源文件\Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryInject.cpp">
+      <Filter>源文件\Inject</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoteThreadInject.cpp">
+      <Filter>源文件\Inject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HookBase.h">
+      <Filter>源文件\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="InjectBase.h">
+      <Filter>头文件\Inject</Filter>
+    </ClInclude>
+    <ClInclude Include="InlineHook.h">
+      <Filter>头文件\Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryInject.h">
+      <Filter>头文件\Inject</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryInjectShellCode.h">
+      <Filter>头文件\Inject</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoteThreadInject.h">
+      <Filter>头文件\Inject</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\basic_types.h">
+      <Filter>头文件\Decompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="BeaEngine.h">
+      <Filter>头文件\Decompiler</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes\export.h">
+      <Filter>头文件\Decompiler</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{5b17a8ab-7fc7-4490-9b09-37cc1dcd0b89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Hook">
+      <UniqueIdentifier>{15938627-6b1f-43e0-85f3-c48b3314e197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Inject">
+      <UniqueIdentifier>{f2178e15-8fb5-4704-9020-8798798f301b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{ce6ab91b-1481-40e7-a681-f942c85e2835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Hook">
+      <UniqueIdentifier>{9dc86067-f184-4665-aa89-9093f4741d5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Inject">
+      <UniqueIdentifier>{62786fb2-e2cd-4bc7-a304-ddf53906aafb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Common">
+      <UniqueIdentifier>{7259f519-1e4f-4bac-89b6-3e9fbd84bd02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Common">
+      <UniqueIdentifier>{94c34bf1-f844-47f5-b33b-4d633cae4a09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Decompiler">
+      <UniqueIdentifier>{a2f576f7-5086-4634-8f0c-c6de38597bf4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
